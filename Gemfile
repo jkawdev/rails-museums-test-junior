@@ -53,6 +53,8 @@ gem "autoprefixer-rails"
 gem "font-awesome-sass", "~> 6.1"
 gem "simple_form", github: "heartcombo/simple_form"
 gem "geocoder"
+gem 'httparty', '~> 0.21.0'
+gem 'nokogiri', '~> 1.15', '>= 1.15.4'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
