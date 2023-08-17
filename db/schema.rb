@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_16_150500) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_17_091122) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_150500) do
     t.string "address"
     t.string "country"
     t.integer "visitors"
+    t.string "category"
   end
 
 end

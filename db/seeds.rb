@@ -9,46 +9,47 @@
 require "nokogiri"
 require "open-uri"
 require 'httparty'
+require "json"
 
 Museum.destroy_all
 
 # SEED EXEMPLE
 Museum.create!(
   name: "Musée d'Orsay",
-  address: "1, rue de la Légion d'Honneur, Paris",
+  address: "Paris",
   country: "France",
-  visitors: 3555555
+  visitors: 3_555_555
 )
 
-url = "https://www.wikiwand.com/fr/Liste_des_mus%C3%A9es_d%27art_les_plus_visit%C3%A9s_au_monde"
+json_url = "https://www.data.gouv.fr/fr/datasets/r/a5c5d76e-979a-4073-ba0d-0844bb3c1398"
+response = HTTParty.get(json_url)
+museums_data = JSON.parse(response.body)
 
-response = HTTParty.get(url)
-html = response.body
 
-doc = Nokogiri::HTML(html)
 
-td_elements = doc.css('table tbody tr td')
-td_elements.each do |td|
-  puts td.text
-end
+museums_data.each do |museum_data|
+  fields = museum_data['fields']
+  # puts fields
+  name = fields['nomoff']
 
-museums_data = []
+  # fields['adrl1_m'] = nil if fields['adrl1_m'] == ""
+  # fields['ville_m'] = nil if fields['ville_m'] == ""
+  fields['cp_m'] = nil if fields['cp_m'] == ""
+  fields['categ'] = nil if fields['categ'] == ""
 
-td_elements.each_slice(5) do |tds|
-  museum = {
-    name: tds[1].text.strip,
-    address: tds[2].text.strip,
-    country: tds[3].text.strip,
-    visitors: tds[4].text.to_i
-  }
-  museums_data << museum
-end
+  address = fields['ville_m']
 
-museums_data.each do |museum|
+  # address = "#{fields['adrl1_m']}, #{fields['ville_m']}"
+  zipcode = fields['cp_m']
+  category = fields['categ']
+
+
+
+
   Museum.create!(
-    name: museum[:name],
-    address: museum[:address],
-    country: museum[:country],
-    visitors: museum[:visitors]
+    name: name,
+    address: address,
+    zipcode: zipcode,
+    category: category
   )
 end
