@@ -7,7 +7,8 @@ class MuseumsController < ApplicationController
         lat: museum.latitude,
         lng: museum.longitude,
         # update to controller to pass window_info partial
-        info_window_html: render_to_string(partial: "info_window", locals: { museum: museum })
+        info_window_html: render_to_string(partial: "info_window", locals: { museum: museum }),
+        marker_html: render_to_string(partial: "marker")
       }
     end
   end

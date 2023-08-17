@@ -1,26 +1,22 @@
 <p>Hello</p>
 <p>What's up ?</p>
 
+<div class="">
+<%# SEARCHBAR NON INTEGREE A LA MAP %>
+  <div class="searchbar">
+    <%= form_with url: museums_path, method: :get do %>
+      <%= text_field_tag :query,
+        params[:query],
+        class: "form-control",
+        placeholder: "Find an experience"
+      %>
+      <%= submit_tag "Search", class: "home-offer-card-cta" %>
+    <% end %>
+    </div>
 
-
-<div style="width: 100%; height: 600px;"
-  data-controller="map"
-  data-map-markers-value="<%= @markers.to_json %>"
-  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
-
-<%# <table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-  <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </tbody>
-</table> %>
+  <div style="width: 100%; height: 600px;"
+    data-controller="map"
+    data-map-markers-value="<%= @markers.to_json %>"
+    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
+</div>
